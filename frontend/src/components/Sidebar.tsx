@@ -11,6 +11,7 @@ import {
     Building2,
     ClipboardList,
     FlaskConical,
+    Truck,
     LogOut,
     ChevronRight,
     Sun,
@@ -18,12 +19,13 @@ import {
 } from "lucide-react";
 
 const navItems = [
-    { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/route-intelligence", label: "Route Intelligence", icon: Navigation },
-    { href: "/market-pivot", label: "Market Pivot Engine", icon: ShoppingCart },
-    { href: "/facility-monitor", label: "Facility Monitor", icon: Building2 },
-    { href: "/trip-logs", label: "Trip Logs", icon: ClipboardList },
-    { href: "/simulation-lab", label: "Simulation Lab", icon: FlaskConical },
+    { href: "/dashboard",         label: "Dashboard",           icon: LayoutDashboard },
+    { href: "/trip-assignment",   label: "Trip Assignment",      icon: Truck },
+    { href: "/route-intelligence",label: "Route Intelligence",   icon: Navigation },
+    { href: "/market-pivot",      label: "Market Pivot Engine",  icon: ShoppingCart },
+    { href: "/facility-monitor",  label: "Facility Monitor",     icon: Building2 },
+    { href: "/trip-logs",         label: "Trip Logs",            icon: ClipboardList },
+    { href: "/simulation-lab",    label: "Simulation Lab",       icon: FlaskConical },
 ];
 
 export default function Sidebar() {
