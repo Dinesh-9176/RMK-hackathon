@@ -23,6 +23,27 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Global dark mode */
+.dark-mode {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --bg-card-hover: #273549;
+  --bg-main: #0a1122;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #22d3ee;
+  --accent-green: #4ade80;
+  --accent-yellow: #facc15;
+  --accent-red: #f87171;
+  --accent-orange: #fb923c;
+  --accent-purple: #a78bfa;
+  --border-color: #1e293b;
+  --border-glow: transparent;
+}
+
 /* Dark sidebar scoped overrides */
 .sidebar-dark {
   --bg-primary: #0f172a;

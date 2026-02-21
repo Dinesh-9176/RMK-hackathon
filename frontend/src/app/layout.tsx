@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aegis Harvest – Autonomous Cold-Chain Copilot",
+  title: "Bharath Logistics – Autonomous Cold-Chain Copilot",
   description: "Enterprise cold-chain monitoring and autonomous logistics optimization platform",
 };
 

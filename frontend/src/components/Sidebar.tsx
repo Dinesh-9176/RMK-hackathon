@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppContext } from "@/context/AppContext";
+import { useEffect, useState } from "react";
 import {
     LayoutDashboard,
     Navigation,
@@ -11,8 +12,9 @@ import {
     ClipboardList,
     FlaskConical,
     LogOut,
-    Shield,
     ChevronRight,
+    Sun,
+    Moon,
 } from "lucide-react";
 
 const navItems = [
@@ -27,9 +29,18 @@ const navItems = [
 export default function Sidebar() {
     const pathname = usePathname();
     const { state } = useAppContext();
-    const { systemStatus, isCrisis } = state;
+    const { isCrisis } = state;
 
-    const statusLabel = systemStatus === "safe" ? "All Systems Safe" : systemStatus === "warning" ? "Warning Active" : "Crisis Mode";
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+        const html = document.documentElement;
+        if (darkMode) {
+            html.classList.add("dark-mode");
+        } else {
+            html.classList.remove("dark-mode");
+        }
+    }, [darkMode]);
 
     return (
         <aside
@@ -52,30 +63,28 @@ export default function Sidebar() {
         >
             {/* Brand Block */}
             <div style={{ padding: "1.5rem 1.25rem", borderBottom: "1px solid var(--border-color)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
-                    <div style={{
-                        width: 36, height: 36, borderRadius: 8,
-                        background: isCrisis ? "linear-gradient(135deg, #ef4444, #dc2626)" : "linear-gradient(135deg, #38bdf8, #818cf8)",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        transition: "all 0.3s",
-                    }}>
-                        <Shield size={20} color="white" />
-                    </div>
-                    <div>
-                        <h1 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.2, margin: 0 }}>
-                            Aegis Harvest
-                        </h1>
-                    </div>
+                <div style={{ marginBottom: "4px" }}>
+                    <h1
+                        style={{
+                            fontSize: "1.35rem",
+                            fontWeight: 800,
+                            lineHeight: 1.15,
+                            margin: 0,
+                            background: isCrisis
+                                ? "linear-gradient(135deg, #f87171, #dc2626)"
+                                : "linear-gradient(135deg, #38bdf8 0%, #818cf8 60%, #a78bfa 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            letterSpacing: "-0.01em",
+                        }}
+                    >
+                        Bharath Logistics
+                    </h1>
                 </div>
-                <p style={{ fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.05em", textTransform: "uppercase", margin: "8px 0 12px 0" }}>
+                <p style={{ fontSize: "0.68rem", color: "var(--text-muted)", letterSpacing: "0.06em", textTransform: "uppercase", margin: "6px 0 0 0" }}>
                     Autonomous Cold-Chain Copilot
                 </p>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <span className={`status-dot ${systemStatus}`} />
-                    <span style={{ fontSize: "0.78rem", color: systemStatus === "crisis" ? "var(--accent-red)" : systemStatus === "warning" ? "var(--accent-yellow)" : "var(--accent-green)", fontWeight: 600 }}>
-                        {statusLabel}
-                    </span>
-                </div>
             </div>
 
             {/* Navigation */}
@@ -134,7 +143,70 @@ export default function Sidebar() {
 
             {/* Bottom Section */}
             <div style={{ padding: "1rem 1.25rem", borderTop: "1px solid var(--border-color)" }}>
+                {/* User row + compact dark mode toggle side by side */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                    {/* Tiny pill toggle */}
+                    <button
+                        onClick={() => setDarkMode((d) => !d)}
+                        title={darkMode ? "Light Mode" : "Dark Mode"}
+                        style={{
+                            position: "relative",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            width: 46,
+                            height: 24,
+                            borderRadius: 999,
+                            flexShrink: 0,
+                            border: "none",
+                            padding: 0,
+                            cursor: "pointer",
+                            background: darkMode
+                                ? "linear-gradient(135deg, #1e293b, #0f172a)"
+                                : "linear-gradient(135deg, #fef9c3, #fde68a)",
+                            boxShadow: darkMode
+                                ? "inset 0 0 0 1px #334155, 0 1px 4px rgba(56,189,248,0.18)"
+                                : "inset 0 0 0 1px #fcd34d, 0 1px 4px rgba(251,191,36,0.2)",
+                            transition: "background 0.4s ease, box-shadow 0.4s ease",
+                        }}
+                        aria-label="Toggle dark mode"
+                    >
+                        {/* Sun icon (left) */}
+                        <span style={{
+                            position: "absolute", left: 5,
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            color: darkMode ? "#475569" : "#d97706",
+                            transition: "opacity 0.3s", opacity: darkMode ? 0 : 1,
+                            zIndex: 0,
+                        }}>
+                            <Sun size={11} strokeWidth={2.5} />
+                        </span>
+                        {/* Moon icon (right) */}
+                        <span style={{
+                            position: "absolute", right: 5,
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            color: darkMode ? "#38bdf8" : "#cbd5e1",
+                            transition: "opacity 0.3s", opacity: darkMode ? 1 : 0,
+                            zIndex: 0,
+                        }}>
+                            <Moon size={11} strokeWidth={2.5} />
+                        </span>
+                        {/* Sliding knob */}
+                        <span style={{
+                            position: "absolute",
+                            top: 3,
+                            left: darkMode ? 25 : 3,
+                            width: 18,
+                            height: 18,
+                            borderRadius: "50%",
+                            background: darkMode ? "#38bdf8" : "#ffffff",
+                            boxShadow: darkMode
+                                ? "0 1px 6px rgba(56,189,248,0.5)"
+                                : "0 1px 4px rgba(0,0,0,0.18)",
+                            transition: "left 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s",
+                            zIndex: 1,
+                        }} />
+                    </button>
+
                     <div style={{
                         width: 34, height: 34, borderRadius: "50%",
                         background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
